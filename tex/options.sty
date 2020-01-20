@@ -1,0 +1,31 @@
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+
+% Page margins
+\geometry{margin=0.75in}
+
+% List margin
+\setlist{leftmargin=10pt}
+
+% Titles
+\titleformat{\section}{\huge\bfseries}{\noindent\thesection}{0pt}{}
+\titlespacing{\section}{0pt}{0pt}{0pt}
+\titleformat{\subsection}{\large\bfseries\MakeUppercase}{\thesubsection}{1em}{}
+
+% Bullet points
+\renewcommand{\labelitemi}{}
+\renewcommand{\labelitemii}{\raise .5ex\hbox{\tiny$\blacktriangleright$}}
+
+% Page numbering
+\pagenumbering{gobble}
+
+% Paragraph indentation
+\setlength{\parindent}{20pt}
+
+% Fix minipage paragraph spacing
+\makeatletter
+\newcommand{\@minipagerestore}{\setlength{\parskip}{\medskipamount}}
+\makeatother

@@ -1,0 +1,62 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          sudo apt-get install --yes texlive-latex-extra texlive-fonts-recommended lmodern pandoc make
+          make
+      
+      - uses: actions/upload-artifact@v1
+        with:
+          name: resume.pdf
+          path: build/resume.pdf
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+
+      - name: Get commit
+        id: commit
+        run: |
+          git log --format=%h -1
+          echo "::set-output name=commit::$(git log --format=%h -1)"
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.date.outputs.date }}-${{ steps.commit.outputs.commit }}
+          release_name: ${{ steps.date.outputs.date }}-${{ steps.commit.outputs.commit }}
+          draft: false
+          prerelease: false
+          
+      - uses: actions/download-artifact@v1
+        with:
+          name: resume.pdf
+          path: $GITHUB_WORKSPACE
+
+      - name: Upload release
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_content_type: application/pdf
+          asset_path: $GITHUB_WORKSPACE/resume.pdf
+          asset_name: resume.pdf
