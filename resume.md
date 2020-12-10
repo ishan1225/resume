@@ -33,7 +33,7 @@ urlcolor: BlueViolet
 *	**Software Engineer, Synamedia**  
 	Mar. 2020 -- Current
 
-	- Contributed to a C/C++ application
+	- Contributed to a C++ application for digital content distribution
 	- Automated the process of creating embedded device images based on Yocto Linux
 	- Used Python and Bash to automate certificate provisioning and manufacturing processes
 	- Utilized linters and vulnerability scanning tools to monitor and maintain code quality
@@ -42,6 +42,7 @@ urlcolor: BlueViolet
 	Jun. 2019 -- Mar. 2020
 
 	- Developed embedded software for a system that measures restroom cleanliness using C and RTOS
+	- Contributed to PHP and JavaScript web application for remote IoT device monitoring
 	- Coordinated external contractors to deliver on changing business requirements
 	- Managed inventory and device provisioning with AWS IoT Core
 	- Worked with various protocols including WiFi, BLE, MQTT and HTTP
